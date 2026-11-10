@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "ReserveX-web": {
+    "ia-drive": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -61,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ReserveX-web:build:production"
+              "buildTarget": "ia-drive:build:production"
             },
             "development": {
-              "buildTarget": "ReserveX-web:build:development"
+              "buildTarget": "ia-drive:build:development"
             }
           },
           "defaultConfiguration": "development"

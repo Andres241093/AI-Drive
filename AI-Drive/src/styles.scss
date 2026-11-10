@@ -1,0 +1,37 @@
+@use '@angular/material' as mat;
+@use './app/features/drive/drive';
+
+html {
+	height: 100%;
+	@include mat.theme((
+		color: (primary: mat.$azure-palette, tertiary: mat.$blue-palette),
+		typography: Google Sans,
+		density: 0,
+	));
+}
+
+* { box-sizing: border-box; }
+
+body {
+	height: 100%;
+	margin: 0;
+	color: #202124;
+	background: #fff;
+	font-family: 'Google Sans', Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+button, input { font: inherit; }
+
+.material-icons-round {
+	font-family: 'Material Symbols Rounded' !important;
+	font-weight: normal;
+	font-style: normal;
+	letter-spacing: normal;
+	text-transform: none;
+	white-space: nowrap;
+	direction: ltr;
+	font-feature-settings: 'liga';
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
+}
