@@ -1,0 +1,45 @@
+<aside class="assistant-panel" [class.panel-hidden]="!isOpen()" aria-label="Asistente de archivos">
+  @if (isOpen()) {
+    <div class="assistant-heading">
+      <span class="sparkle"><mat-icon fontSet="material-icons-round">auto_awesome</mat-icon></span>
+      <h2>Pregunta sobre tus archivos</h2>
+      <button mat-icon-button aria-label="Cerrar panel" (click)="closeRequested.emit()"><mat-icon fontSet="material-icons-round">close</mat-icon></button>
+    </div>
+    <div class="assistant-body">
+      <div class="assistant-illustration" aria-hidden="true">
+        <div class="illustration-glow"><mat-icon fontSet="material-icons-round">description</mat-icon><span><mat-icon fontSet="material-icons-round">auto_awesome</mat-icon></span></div>
+      </div>
+      <h3>{{ selectedFile() ? selectedFile()!.name : 'Chatea con tus archivos' }}</h3>
+      <p>{{ selectedFile() ? 'Puedo ayudarte a encontrar información en este archivo.' : 'Haz preguntas, obtén resúmenes y encuentra información en tu Drive.' }}</p>
+      <div class="suggestions">
+        <button (click)="askAssistant('Resume esta carpeta')">Resume esta carpeta</button>
+        <button (click)="askAssistant('Busca información importante')">Encuentra información clave</button>
+        <button (click)="askAssistant('Compara mis documentos')">Compara estos documentos</button>
+      </div>
+      @if (isLoading()) { <div class="assistant-reply" role="status"><span>Asistente</span><p>Consultando tus documentos…</p></div> }
+      @if (reply()) {
+        <div class="assistant-reply">
+          <span>Asistente</span>
+          <p>
+            @for (segment of replySegments(); track $index) {
+              @if (segment.downloadUrl && segment.fileName) {
+                <a class="document-link" [href]="segment.downloadUrl" [download]="segment.fileName" target="_blank" rel="noopener noreferrer">
+                  <mat-icon fontSet="material-icons-round" aria-hidden="true">description</mat-icon>{{ segment.fileName }}
+                </a>
+              } @else {
+                {{ segment.text }}
+              }
+            }
+          </p>
+        </div>
+      }
+      @if (errorMessage()) { <div class="assistant-reply" role="alert"><span>Error</span><p>{{ errorMessage() }}</p></div> }
+    </div>
+    <form class="assistant-input" (submit)="$event.preventDefault(); askAssistant(questionInput.value); questionInput.value = ''">
+      <input #questionInput placeholder="Pregunta sobre tus archivos…" aria-label="Pregunta sobre tus archivos" [disabled]="isLoading()" />
+      <button mat-icon-button aria-label="Enviar pregunta" type="submit" [disabled]="isLoading()"><mat-icon fontSet="material-icons-round">send</mat-icon></button>
+    </form>
+  } @else {
+    <button class="reopen-assistant" mat-icon-button aria-label="Abrir asistente" (click)="openRequested.emit()" matTooltip="Abrir asistente"><mat-icon fontSet="material-icons-round">auto_awesome</mat-icon></button>
+  }
+</aside>

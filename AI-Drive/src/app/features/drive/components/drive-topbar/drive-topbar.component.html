@@ -1,0 +1,28 @@
+<header class="topbar">
+  <a class="brand" href="#" aria-label="Inicio de IA-Drive">
+    <span class="brand-mark" aria-hidden="true"><i></i><b></b><em></em></span>
+    <span>IA-Drive</span>
+  </a>
+
+  <label class="search-box" for="drive-search">
+    <mat-icon fontSet="material-icons-round">search</mat-icon>
+    <input
+      id="drive-search"
+      type="search"
+      placeholder="Buscar en Drive"
+      [value]="searchTerm()"
+      (input)="onSearchInput($event)"
+    />
+    @if (searchTerm()) {
+      <button mat-icon-button aria-label="Limpiar búsqueda" (click)="searchCleared.emit()">
+        <mat-icon fontSet="material-icons-round">close</mat-icon>
+      </button>
+    }
+  </label>
+
+  <div class="topbar-actions">
+    <button mat-icon-button aria-label="Ayuda" matTooltip="Ayuda"><mat-icon fontSet="material-icons-round">help_outline</mat-icon></button>
+    <button mat-icon-button aria-label="Configuración" matTooltip="Configuración"><mat-icon fontSet="material-icons-round">settings</mat-icon></button>
+    <button class="profile-button" aria-label="Cuenta de usuario">A</button>
+  </div>
+</header>

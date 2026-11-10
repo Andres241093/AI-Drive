@@ -1,0 +1,55 @@
+<div class="drive-shell">
+  <app-drive-topbar
+    [searchTerm]="store.searchTerm()"
+    (searchChanged)="store.setSearch($event)"
+    (searchCleared)="store.clearSearch()"
+  />
+
+  <div class="workspace">
+    <app-drive-sidebar
+      [activeSection]="store.activeSection()"
+      (sectionSelected)="store.setSection($event)"
+      (uploadRequested)="openFilePicker()"
+      (itemCreationRequested)="store.createItem($event)"
+      (notificationRequested)="store.showToast($event)"
+    />
+
+    <app-drive-file-browser
+      [files]="store.filteredFiles()"
+      [activeSection]="store.activeSection()"
+      [selectedFileId]="store.selectedFile()?.id ?? null"
+      [sortAscending]="store.sortAscending()"
+      [loadingFiles]="store.isLoadingFiles()"
+      [filesError]="store.filesError()"
+      (fileSelected)="store.selectFile($event)"
+      (fileOpened)="onFileOpened($event)"
+      (sortRequested)="store.sortByName()"
+      (filterRequested)="store.toggleFilter($event)"
+      (filesDropped)="store.addFiles($event)"
+      (reloadRequested)="store.loadDocuments()"
+    />
+
+    <app-drive-assistant
+      [selectedFile]="store.selectedFile()"
+      [isOpen]="assistantOpen()"
+      (closeRequested)="assistantOpen.set(false)"
+      (openRequested)="assistantOpen.set(true)"
+    />
+  </div>
+
+  <input
+    #fileInput
+    class="file-input"
+    type="file"
+    [accept]="uploadAccept"
+    multiple
+    aria-label="Seleccionar archivos PDF, TXT, Markdown o CSV"
+    (change)="handleFileInput($event)"
+  />
+
+  @if (store.toastMessage()) {
+    <div class="toast" [class.toast-error]="store.toastIsError()" [attr.role]="store.toastIsError() ? 'alert' : 'status'">
+      {{ store.toastMessage() }}
+    </div>
+  }
+</div>

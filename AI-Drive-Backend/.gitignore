@@ -1,0 +1,6 @@
+node_modules/
+.env
+.openai-vector-store-id
+npm-debug.log*
+documentos/*
+!documentos/.gitkeep

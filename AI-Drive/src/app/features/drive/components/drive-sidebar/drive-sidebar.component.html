@@ -1,0 +1,47 @@
+<aside class="sidebar" aria-label="Navegación principal">
+  <div class="new-wrap">
+    <button mat-button class="new-button" (click)="toggleNewMenu()" [attr.aria-expanded]="showNewMenu()">
+      <mat-icon class="plus-icon" fontSet="material-icons-round">add</mat-icon>
+      <span>Nuevo</span>
+      <mat-icon class="new-chevron" fontSet="material-icons-round">expand_more</mat-icon>
+    </button>
+    @if (showNewMenu()) {
+      <div class="new-menu" role="menu">
+        <button role="menuitem" (click)="requestUpload()"><mat-icon fontSet="material-icons-round">upload_file</mat-icon>Subir archivos</button>
+        <span class="menu-divider"></span>
+        <button role="menuitem" (click)="requestItemCreation('folder')"><mat-icon fontSet="material-icons-round">create_new_folder</mat-icon>Nueva carpeta</button>
+        <button role="menuitem" (click)="requestItemCreation('document')"><span class="file-type-icon docs"><mat-icon fontSet="material-icons-round">description</mat-icon></span>Documento</button>
+        <button role="menuitem" (click)="requestItemCreation('spreadsheet')"><span class="file-type-icon sheets"><mat-icon fontSet="material-icons-round">table_chart</mat-icon></span>Hoja de cálculo</button>
+        <button role="menuitem" (click)="requestItemCreation('drawing')"><span class="file-type-icon drawing"><mat-icon fontSet="material-icons-round">draw</mat-icon></span>Dibujo</button>
+      </div>
+    }
+  </div>
+
+  <nav class="primary-nav">
+    <button class="nav-item" [class.active]="activeSection() === 'Mi unidad'" (click)="sectionSelected.emit('Mi unidad')">
+      <mat-icon fontSet="material-icons-round">hard_drive</mat-icon><span>Mi unidad</span>
+    </button>
+    <button class="nav-item" [class.active]="activeSection() === 'Compartido conmigo'" (click)="sectionSelected.emit('Compartido conmigo')">
+      <mat-icon fontSet="material-icons-round">group</mat-icon><span>Compartido conmigo</span>
+    </button>
+    <button class="nav-item" [class.active]="activeSection() === 'Reciente'" (click)="sectionSelected.emit('Reciente')">
+      <mat-icon fontSet="material-icons-round">schedule</mat-icon><span>Reciente</span>
+    </button>
+    <button class="nav-item" [class.active]="activeSection() === 'Destacados'" (click)="sectionSelected.emit('Destacados')">
+      <mat-icon fontSet="material-icons-round">star_outline</mat-icon><span>Destacados</span>
+    </button>
+    <button class="nav-item" [class.active]="activeSection() === 'Papelera'" (click)="sectionSelected.emit('Papelera')">
+      <mat-icon fontSet="material-icons-round">delete_outline</mat-icon><span>Papelera</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-divider"></div>
+  <button class="nav-item storage-link" (click)="sectionSelected.emit('Almacenamiento')">
+    <mat-icon fontSet="material-icons-round">storage</mat-icon><span>Almacenamiento</span>
+  </button>
+  <div class="storage-meter">
+    <div class="meter-track"><span></span></div>
+    <p>66,2 MB de 15 GB usados</p>
+  </div>
+  <button class="upgrade-link" (click)="notificationRequested.emit('Tu almacenamiento está actualizado')">Obtener más almacenamiento</button>
+</aside>
